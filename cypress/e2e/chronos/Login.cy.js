@@ -1,9 +1,33 @@
 /// <reference types="cypress" />
 
-describe('Login', () => {
+describe('Testes tela de login', () => {
     beforeEach(() => {
       cy.visit('http://chronos.hml.qwa.brasil/login');
     })
+
+    it('Testes de inputs', () => {
+      cy.get('.login-form').should('have.attr', 'placeholder', 'Usuário').should('have.css', 'border-color', 'rgb(202, 214, 226)');
+      cy.get('.input-content > .input-password').should('have.attr', 'placeholder', 'Senha').should('have.css', 'border-color', 'rgb(202, 214, 226)');
+
+      cy.get('.login-form').click();
+      cy.get('.input-content > .input-password').click();
+
+      cy.get('.logo-chronos').click();
+
+
+      cy.get('.login-form').should('have.css', 'border-color', 'rgb(244, 92, 78)');
+      cy.get('.input-content > .input-password').should('have.css', 'border-color', 'rgb(244, 92, 78)');
+      
+    });
+
+    it('Testes do botão', () => {
+      cy.get('.login-form').should('have.value', '');
+      cy.get('.input-content > .input-password').should('have.value', '');
+
+      cy.get('[type="submit"]').should('be.disabled');
+      cy.get('[type="submit"]').contains('Enviar');
+    });
+
   
     it('Fazer login no chronos', () => {
 
@@ -39,14 +63,5 @@ describe('Login', () => {
       //   console.log(xhr)
       //   expect(xhr.response.statusCode).be.eq(200);
       // });    
-    });
-  
-    it('Testar se o botão de login está desab...', () => {
-      cy.get('.login-form').should('have.value', '');
-  
-      cy.get('button.btn').should('be.disabled');
-  
-      cy.get('[type="submit"]').should('be.disabled');
-  
     });
   }); 
